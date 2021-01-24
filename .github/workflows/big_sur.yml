@@ -1,4 +1,4 @@
-name: mac
+name: big_sur
 on: 
   workflow_dispatch:
 defaults:
