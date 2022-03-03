@@ -15,5 +15,20 @@ jobs:
         key_file: id_ecdsa
     - uses: actions/checkout@v2
     - run: source script-linux.sh
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@master
+    - name: Install dependencies
+      run: |
+        wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+        sudo apt-get install ripgrep ./cloudflared-linux-amd64.deb
+    - name: Launch tunnel
+      run: |
+        tmux new -Ads d3v -n first \
+          cloudflared tunnel --url ssh://localhost:22 --metrics localhost:5642 \; \
+          neww
+        echo "Entering main loop"
+        while true; do
+          URL=$(curl -s http://localhost:5642/metrics | rg 'cloudflared_tunnel_user_hostnames_counts\{userHostname="https://(.+)"\}.+' -r '$1')
+          if [[ $URL ]]; then
+            echo "SSH: $URL"
+          fi
+          sleep 5
+        done
