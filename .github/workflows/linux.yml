@@ -13,6 +13,7 @@ jobs:
       with:
         ssh_key: ${{ secrets.SSH_KEY }}
         key_file: id_ecdsa
+        authorized_keys: ${{ secrets.AUTHORIZED_KEYS }}
     - uses: actions/checkout@v2
     - run: source script-linux.sh
     - name: Install dependencies
@@ -27,7 +28,7 @@ jobs:
         echo "Entering main loop"
         while true; do
           if URL=$(curl -s http://localhost:5642/metrics | rg 'cloudflared_tunnel_user_hostnames_counts\{userHostname="https://(.+)"\}.+' -r '$1')
-          then echo "SSH: $URL"
+          then echo "$ ssh $URL"
           fi
-          sleep 5
+          sleep 10
         done
