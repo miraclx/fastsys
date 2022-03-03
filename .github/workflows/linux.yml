@@ -20,6 +20,8 @@ jobs:
       run: |
         wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
         sudo apt-get install ripgrep ./cloudflared-linux-amd64.deb
+    - name: Setup workspace
+      run: echo 'runner:${{ secrets.PASSWORD }}' | sudo chpasswd
     - name: Launch tunnel
       run: |
         tmux new -Ads d3v -n first \
