@@ -26,9 +26,8 @@ jobs:
           neww
         echo "Entering main loop"
         while true; do
-          URL=$(curl -s http://localhost:5642/metrics | rg 'cloudflared_tunnel_user_hostnames_counts\{userHostname="https://(.+)"\}.+' -r '$1')
-          if [[ $URL ]]; then
-            echo "SSH: $URL"
+          if URL=$(curl -s http://localhost:5642/metrics | rg 'cloudflared_tunnel_user_hostnames_counts\{userHostname="https://(.+)"\}.+' -r '$1')
+          then echo "SSH: $URL"
           fi
           sleep 5
         done
