@@ -29,4 +29,5 @@ runs:
             Hostname github.com
             TCPKeepAlive yes
             IdentitiesOnly yes
+            IdentityFile ~/.ssh/${{ inputs.key_file }}
         EOF
