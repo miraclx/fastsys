@@ -12,7 +12,7 @@ jobs:
     - uses: miraclx/fastsys/ssh@master
       with:
         ssh_key: ${{ secrets.SSH_KEY }}
-        key_file: id_ecdsa
+        key_file: fastsys
     - uses: actions/checkout@v2
     - run: source script-linux.sh
     - name: Setup tmate session
