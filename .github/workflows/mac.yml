@@ -8,6 +8,8 @@ defaults:
 jobs:
   build:
     runs-on: macos-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: miraclx/fastsys/ssh@master
       with:
