@@ -2,19 +2,19 @@ name: linux
 on:
   workflow_dispatch:
     inputs:
-      runs-on:
+      architecture:
         type: choice
-        description: "Select machine"
+        description: "Select architecture"
         options:
-          - ubuntu-24.04-arm
-          - ubuntu-24.04
+          - x86_64
+          - aarch64
 defaults:
   run:
     shell: bash
 
 jobs:
   build:
-    runs-on: ${{ github.event.inputs.runs-on }}
+    runs-on: ${{ github.event.inputs.architecture == 'x86_64' && 'ubuntu-latest' || 'ubuntu-latest-arm' }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
