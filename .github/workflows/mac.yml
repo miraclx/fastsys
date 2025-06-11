@@ -14,7 +14,7 @@ defaults:
 
 jobs:
   build:
-    runs-on: ${{ github.event.inputs.architecture == 'aarch64' && 'macos-latest' || 'macos-latest-large' }}
+    runs-on: ${{ github.event.inputs.architecture == 'aarch64' && 'macos-latest' || 'macos-13' }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
