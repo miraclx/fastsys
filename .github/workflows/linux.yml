@@ -5,7 +5,6 @@ on:
       architecture:
         type: choice
         description: "Select architecture"
-        default: aarch64
         options:
           - x86_64
           - aarch64
