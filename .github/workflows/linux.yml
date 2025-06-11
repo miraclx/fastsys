@@ -14,7 +14,7 @@ defaults:
 
 jobs:
   build:
-    runs-on: ${{ github.event.inputs.architecture == 'x86_64' && 'ubuntu-latest' || 'ubuntu-latest-arm' }}
+    runs-on: ${{ github.event.inputs.architecture == 'x86_64' && 'ubuntu-latest' || 'ubuntu-24.04-arm' }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:

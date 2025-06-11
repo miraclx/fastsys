@@ -1,21 +1,28 @@
 name: mac
-on: 
+on:
   workflow_dispatch:
+    inputs:
+      architecture:
+        type: choice
+        description: "Select architecture"
+        options:
+          - x86_64
+          - aarch64
 defaults:
   run:
     shell: bash
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ${{ github.event.inputs.architecture == 'aarch64' && 'macos-latest' || 'macos-latest-large' }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-    - uses: miraclx/fastsys/ssh@master
-      with:
-        ssh_key: ${{ secrets.SSH_KEY }}
-        key_file: id_ecdsa
-    - uses: actions/checkout@v2
-    - run: source script-mac.sh
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v2
+      - uses: miraclx/fastsys/ssh@master
+        with:
+          ssh_key: ${{ secrets.SSH_KEY }}
+          key_file: id_ecdsa
+      - uses: actions/checkout@v2
+      - run: source script-mac.sh
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v2
